@@ -302,7 +302,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 Log.e(TAG, "could not persist screen timeout setting", e);
             }
         }
-        }if (KEY_HDMI_RESOLUTION.equals(key))
+	if (KEY_HDMI_RESOLUTION.equals(key))
         {
             String value = String.valueOf(objValue);
             try {
