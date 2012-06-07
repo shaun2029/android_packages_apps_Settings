@@ -54,6 +54,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_ELECTRON_BEAM_CATEGORY_ANIMATION = "category_animation_options";
     private static final String KEY_VOLUME_WAKE = "pref_volume_wake";
     private static final String KEY_HDMI_RESOLUTION = "hdmi_resolution";
+    private static final String KEY_VOLUME_SYSBAR = "volume_sysbar";
 
     private static final String ROTATION_ANGLE_0 = "0";
     private static final String ROTATION_ANGLE_90 = "90";
@@ -75,6 +76,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mAutomaticBacklightPreference;
 
     private ListPreference mHdmiResolution;
+    private CheckBoxPreference mVolumeSysbar;
 
     private ContentObserver mAccelerometerRotationObserver = new ContentObserver(new Handler()) {
         @Override
@@ -136,6 +138,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mHdmiResolution.setValue(value);
             updateHdmiResolutionSummary(value);
         }
+
+        mVolumeSysbar = (CheckBoxPreference) findPreference(KEY_VOLUME_SYSBAR);
+        mVolumeSysbar.setChecked(Settings.System.getInt(resolver,
+        	Settings.System.VOLUME_SYSBAR, 1) == 1);
 
         mElectronBeamAnimationOn = (CheckBoxPreference) findPreference(KEY_ELECTRON_BEAM_ANIMATION_ON);
         mElectronBeamAnimationOff = (CheckBoxPreference) findPreference(KEY_ELECTRON_BEAM_ANIMATION_OFF);
@@ -313,6 +319,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             boolean value = mBatteryPulse.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_LIGHT_PULSE,
                     value ? 1 : 0);
+        } else if (preference == mVolumeSysbar ) {
+        	Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSBAR,
+        		mVolumeSysbar.isChecked() ? 1 : 0);
         } else if (preference == mElectronBeamAnimationOn) {
             Settings.System.putInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_ON,
                     mElectronBeamAnimationOn.isChecked() ? 1 : 0);

@@ -83,4 +83,8 @@
             android:summary="@string/pref_volume_wake_summary"
             android:defaultValue="false" />
 
+    <CheckBoxPreference
+            android:key="volume_sysbar"
+            android:title="@string/volume_sysbar_title" />
+
 </PreferenceScreen>
