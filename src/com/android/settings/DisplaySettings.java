@@ -56,6 +56,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_HDMI_RESOLUTION = "hdmi_resolution";
     private static final String KEY_HDMI_IGNORE_GSENSOR = "hdmi_ignore_gsensor";
     private static final String KEY_VOLUME_SYSBAR = "volume_sysbar";
+    private static final String KEY_ACCELEROMETER_COORDINATE = "accelerometer_coordinate";
 
     private static final String ROTATION_ANGLE_0 = "0";
     private static final String ROTATION_ANGLE_90 = "90";
@@ -79,6 +80,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private ListPreference mHdmiResolution;
     private CheckBoxPreference mHdmiIgnoreGsensor;
     private CheckBoxPreference mVolumeSysbar;
+    private ListPreference mAccelerometerCoordinate;
 
     private ContentObserver mAccelerometerRotationObserver = new ContentObserver(new Handler()) {
         @Override
@@ -148,6 +150,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mVolumeSysbar = (CheckBoxPreference) findPreference(KEY_VOLUME_SYSBAR);
         mVolumeSysbar.setChecked(Settings.System.getInt(resolver,
         	Settings.System.VOLUME_SYSBAR, 1) == 1);
+        
+        mAccelerometerCoordinate = (ListPreference) findPreference(KEY_ACCELEROMETER_COORDINATE);
+        if(mAccelerometerCoordinate != null){
+        	mAccelerometerCoordinate.setOnPreferenceChangeListener(this);
+        	String value = Settings.System.getString(getContentResolver(),
+        		Settings.System.ACCELEROMETER_COORDINATE);
+        	mAccelerometerCoordinate.setValue(value);
+        	updateAccelerometerCoordinateSummary(value);
+        }
 
         mElectronBeamAnimationOn = (CheckBoxPreference) findPreference(KEY_ELECTRON_BEAM_ANIMATION_ON);
         mElectronBeamAnimationOff = (CheckBoxPreference) findPreference(KEY_ELECTRON_BEAM_ANIMATION_OFF);
@@ -318,6 +329,17 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
     }
+    
+    private void updateAccelerometerCoordinateSummary(Object value){       
+        CharSequence[] summaries = getResources().getTextArray(R.array.accelerometer_summaries);
+        CharSequence[] values = mAccelerometerCoordinate.getEntryValues();
+        for (int i=0; i<values.length; i++) {
+            if (values[i].equals(value)) {
+                mAccelerometerCoordinate.setSummary(summaries[i]);
+                break;
+            }
+        }
+    }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -366,9 +388,19 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 Settings.System.putString(getContentResolver(), 
                         Settings.System.HDMI_RESOLUTION, value);
                 updateHdmiResolutionSummary(objValue);
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 Log.e(TAG, "could not persist key hdmi resolution setting", e);
             }
+        }
+        if (KEY_ACCELEROMETER_COORDINATE.equals(key)) {
+        	String value = String.valueOf(objValue);
+        	try {
+        		Settings.System.putString(getContentResolver(),
+        			Settings.System.ACCELEROMETER_COORDINATE, value);
+        		updateAccelerometerCoordinateSummary(objValue);
+        	} catch (NumberFormatException e) {
+        		Log.e(TAG, "could not persist key accelerometer coordinate setting", e);
+        	}
         }
         return true;
     }

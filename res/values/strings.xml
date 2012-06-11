@@ -4462,6 +4462,8 @@ found in the list of installed apps.</string>
     <string name="hdmi_ignore_gsensor_summary">Force orientation to landscape ignoring gsensor</string>
     
     <string name="volume_sysbar_title">Status bar volume control</string>
+    
+    <string name="accelerometer_coordinate_title">Accelerometer coordinate system</string>
 
 	<!-- Begin ethernet configure add by shuge @@@@@ -->
 	<string name="eth_settings_title">Ethernet</string>
