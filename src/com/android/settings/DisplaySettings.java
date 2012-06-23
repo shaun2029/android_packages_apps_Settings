@@ -54,6 +54,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_BATTERY_PULSE = "battery_pulse";
     private static final String KEY_HDMI_RESOLUTION = "hdmi_resolution";
+    private static final String KEY_HDMI_IGNORE_GSENSOR = "hdmi_ignore_gsensor";
     private static final String KEY_ACCELEROMETER_COORDINATE = "accelerometer_coordinate";
     private static final String KEY_VOLUME_SYSBAR = "volume_sysbar";
     
@@ -67,6 +68,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private ListPreference mScreenTimeoutPreference;
 
     private ListPreference mHdmiResolution;
+    private CheckBoxPreference mHdmiIgnoreGsensor;
     private ListPreference mAccelerometerCoordinate;
     private CheckBoxPreference mVolumeSysbar;
 
@@ -129,6 +131,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                     Settings.System.HDMI_RESOLUTION);
             mHdmiResolution.setValue(value);
             updateHdmiResolutionSummary(value);
+        }
+        mHdmiIgnoreGsensor = (CheckBoxPreference) findPreference(KEY_HDMI_IGNORE_GSENSOR);
+        if (mHdmiIgnoreGsensor != null) {
+        	mHdmiIgnoreGsensor.setChecked(Settings.System.getInt(resolver,
+        		Settings.System.HDMI_IGNORE_GSENSOR, 1) == 1);
         }
         mAccelerometerCoordinate = (ListPreference) findPreference(KEY_ACCELEROMETER_COORDINATE);
         if(mAccelerometerCoordinate != null){
@@ -318,6 +325,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_LIGHT_PULSE,
                     value ? 1 : 0);
             return true;
+        } else if (preference == mHdmiIgnoreGsensor ) {
+        	boolean value = mHdmiIgnoreGsensor.isChecked();
+        	Settings.System.putInt(getContentResolver(), Settings.System.HDMI_IGNORE_GSENSOR,
+        		value ? 1 : 0);
+        	return true;
         } else if (preference == mVolumeSysbar ) {
         	 boolean value = mVolumeSysbar.isChecked();
         	 Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSBAR,
