@@ -55,6 +55,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_BATTERY_PULSE = "battery_pulse";
     private static final String KEY_HDMI_RESOLUTION = "hdmi_resolution";
     private static final String KEY_ACCELEROMETER_COORDINATE = "accelerometer_coordinate";
+    private static final String KEY_VOLUME_SYSBAR = "volume_sysbar";
     
     private CheckBoxPreference mAccelerometer;
     private ListPreference mFontSizePref;
@@ -67,6 +68,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     private ListPreference mHdmiResolution;
     private ListPreference mAccelerometerCoordinate;
+    private CheckBoxPreference mVolumeSysbar;
 
     private ContentObserver mAccelerometerRotationObserver = new ContentObserver(new Handler()) {
         @Override
@@ -136,6 +138,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         	mAccelerometerCoordinate.setValue(value);
         	updateAccelerometerCoordinateSummary(value);
         }
+        mVolumeSysbar = (CheckBoxPreference) findPreference(KEY_VOLUME_SYSBAR);
+         if (mVolumeSysbar != null) {
+         	 mVolumeSysbar.setChecked(Settings.System.getInt(resolver,
+         	 	 Settings.System.VOLUME_SYSBAR, 1) == 1);
+         	 mVolumeSysbar.setOnPreferenceChangeListener(this);
+         }
     }
 
     private void updateTimeoutPreferenceDescription(long currentTimeout) {
@@ -309,7 +317,13 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             boolean value = mBatteryPulse.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_LIGHT_PULSE,
                     value ? 1 : 0);
-            return true;        }
+            return true;
+        } else if (preference == mVolumeSysbar ) {
+        	 boolean value = mVolumeSysbar.isChecked();
+        	 Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSBAR,
+        	 	value ? 1 : 0);
+        	 return true;
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
