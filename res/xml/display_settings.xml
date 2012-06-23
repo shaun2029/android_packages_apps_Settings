@@ -77,16 +77,11 @@
              android:persistent="false"
              android:summary="@string/hdmi_ignore_gsensor_summary" />
 
-        <ListPreference
+            <ListPreference
             android:key="accelerometer_coordinate"
             android:title="@string/accelerometer_coordinate_title"
             android:persistent="false"
             android:entries="@array/accelerometer_entries"
             android:entryValues="@array/accelerometer_values" />
-
-        <CheckBoxPreference
-            android:key="volume_sysbar"
-            android:title="@string/volume_sysbar_title"
-            android:persistent="false" />
 
 </PreferenceScreen>
