@@ -83,8 +83,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
             KEY_EMERGENCY_TONE
     };
-    
-    private static final String KEY_VOLUME_SYSBAR = "volume_sysbar";
 
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
     private static final int MSG_UPDATE_NOTIFICATION_SUMMARY = 2;
@@ -102,7 +100,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mSafeHeadsetRestore;
-    private CheckBoxPreference mVolumeSysbar;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -201,10 +198,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mRingtonePreference = findPreference(KEY_RINGTONE);
         mNotificationPreference = findPreference(KEY_NOTIFICATION_SOUND);
-        
-        mVolumeSysbar = (CheckBoxPreference) findPreference(KEY_VOLUME_SYSBAR);
-        mVolumeSysbar.setChecked(Settings.System.getInt(resolver,
-        	Settings.System.VOLUME_SYSBAR, 1) != 0);
 
         if (!((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator()) {
             getPreferenceScreen().removePreference(mVibrateOnRing);
@@ -454,10 +447,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.VOLBTN_MUSIC_CONTROLS,
                     mVolBtnMusicCtrl.isChecked() ? 1 : 0);
 
-        }  else if (preference == mVolumeSysbar ) {
-        	 Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSBAR,
-        	 	 mVolumeSysbar.isChecked() ? 1: 0);
-        	 
         } else {
             // If we didn't handle it, let preferences handle it.
             return super.onPreferenceTreeClick(preferenceScreen, preference);

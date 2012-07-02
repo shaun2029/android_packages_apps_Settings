@@ -118,9 +118,4 @@
             android:entries="@array/emergency_tone_entries"
             android:entryValues="@array/emergency_tone_values" />
 
-    <CheckBoxPreference
-            android:key="volume_sysbar"
-            android:title="@string/volume_sysbar_title"
-            android:defaultValue="false" />
-
 </PreferenceScreen>
