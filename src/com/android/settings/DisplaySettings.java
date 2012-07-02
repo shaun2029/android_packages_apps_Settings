@@ -54,7 +54,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_ELECTRON_BEAM_CATEGORY_ANIMATION = "category_animation_options";
     private static final String KEY_VOLUME_WAKE = "pref_volume_wake";
     private static final String KEY_HDMI_RESOLUTION = "hdmi_resolution";
-    private static final String KEY_HDMI_IGNORE_GSENSOR = "hdmi_ignore_gsensor";
     private static final String KEY_VOLUME_SYSBAR = "volume_sysbar";
     private static final String KEY_ACCELEROMETER_COORDINATE = "accelerometer_coordinate";
 
@@ -78,7 +77,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mAutomaticBacklightPreference;
 
     private ListPreference mHdmiResolution;
-    private CheckBoxPreference mHdmiIgnoreGsensor;
     private CheckBoxPreference mVolumeSysbar;
     private ListPreference mAccelerometerCoordinate;
 
@@ -142,10 +140,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mHdmiResolution.setValue(value);
             updateHdmiResolutionSummary(value);
         }
-        
-        mHdmiIgnoreGsensor = (CheckBoxPreference) findPreference(KEY_HDMI_IGNORE_GSENSOR);
-        mHdmiIgnoreGsensor.setChecked(Settings.System.getInt(resolver,
-        	Settings.System.HDMI_IGNORE_GSENSOR, 1) == 1);
 
         mVolumeSysbar = (CheckBoxPreference) findPreference(KEY_VOLUME_SYSBAR);
         mVolumeSysbar.setChecked(Settings.System.getInt(resolver,
@@ -347,9 +341,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             boolean value = mBatteryPulse.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_LIGHT_PULSE,
                     value ? 1 : 0);
-        } else if (preference == mHdmiIgnoreGsensor ) {
-        	Settings.System.putInt(getContentResolver(), Settings.System.HDMI_IGNORE_GSENSOR,
-        		mHdmiIgnoreGsensor.isChecked() ? 1 : 0);
         } else if (preference == mVolumeSysbar ) {
         	Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSBAR,
         		mVolumeSysbar.isChecked() ? 1 : 0);

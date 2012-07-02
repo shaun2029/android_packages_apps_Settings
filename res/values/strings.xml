@@ -4467,8 +4467,6 @@ found in the list of installed apps.</string>
     
     <string name="hdmi_resolution_title">HDMI resolution</string>
     
-    <string name="hdmi_ignore_gsensor_title">Ignore gsensor orientation when HDMI cable is plugged in</string>
-    
     <string name="volume_sysbar_title">Status bar volume control</string>
     
     <string name="accelerometer_coordinate_title">Accelerometer coordinate system</string>

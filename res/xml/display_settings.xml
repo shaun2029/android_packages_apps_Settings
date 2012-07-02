@@ -59,15 +59,6 @@
             android:entries="@array/hdmi_resolution_entries"
             android:entryValues="@array/hdmi_resolution_values" />
 
-        <CheckBoxPreference
-            android:key="hdmi_ignore_gsensor"
-            android:title="@string/hdmi_ignore_gsensor_title" />
-
-        <CheckBoxPreference
-            android:key="volume_sysbar"
-            android:title="@string/volume_sysbar_title"
-            android:defaultValue="true" />
-
         <ListPreference
             android:key="accelerometer_coordinate"
             android:title="@string/accelerometer_coordinate_title"
@@ -98,5 +89,9 @@
             android:title="@string/pref_volume_wake_title"
             android:summary="@string/pref_volume_wake_summary"
             android:defaultValue="false" />
+
+    <CheckBoxPreference
+            android:key="volume_sysbar"
+            android:title="@string/volume_sysbar_title" />
 
 </PreferenceScreen>
