@@ -310,6 +310,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_LIGHT_PULSE,
                     value ? 1 : 0);
             return true;
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
