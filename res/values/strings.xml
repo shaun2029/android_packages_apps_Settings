@@ -4264,5 +4264,9 @@
      <!-- Stylus Icon -->
     <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
     <string name="stylus_icon_enabled_summary">Show the pointer icon when hovering or drawing with the stylus</string>
+  
+    <string name="hdmi_dual">Enable HDMI dual display</string>
+    <string name="hdmi_dual_on">HDMI dual display enabled</string>
+    <string name="hdmi_dual_off">HDMI dual display disabled</string>
 
 </resources>

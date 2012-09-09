@@ -51,10 +51,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_SCREEN_SAVER = "screensaver";
+    private static final String KEY_DUAL_DISP = "dual_disp";
 
     private CheckBoxPreference mAccelerometer;
     private ListPreference mFontSizePref;
     private CheckBoxPreference mNotificationPulse;
+    private CheckBoxPreference mDualDispPref;
 
     private final Configuration mCurConfig = new Configuration();
     
@@ -115,6 +117,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 Log.e(TAG, Settings.System.NOTIFICATION_LIGHT_PULSE + " not found");
             }
         }
+
+	mDualDispPref = (CheckBoxPreference) findPreference(KEY_DUAL_DISP);
+	if (mDualDispPref != null) {
+	    mDualDispPref.setChecked(Settings.System.getInt(getContentResolver(),
+		Settings.System.HDMI_DUAL_DISP, 1) != 0);
+	}
 
     }
 
@@ -263,7 +271,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.NOTIFICATION_LIGHT_PULSE,
                     value ? 1 : 0);
             return true;
-        }
+        } else  if (preference == mDualDispPref) {
+            Settings.System.putInt(getContentResolver(), Settings.System.HDMI_DUAL_DISP,
+                    mDualDispPref.isChecked() ? 1 : 0);
+	}
+
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
