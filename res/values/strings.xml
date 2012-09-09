@@ -4506,4 +4506,8 @@ found in the list of installed apps.</string>
     <string name="increasing_ring_interval_3seconds">3 seconds</string>
     <string name="increasing_ring_interval_5seconds">5 seconds</string>
     <string name="increasing_ring_interval_10seconds">10 seconds</string>
+    
+    <string name="hdmi_dual">Enable HDMI dual display</string>
+    <string name="hdmi_dual_on">HDMI dual display enabled</string>
+    <string name="hdmi_dual_off">HDMI dual display disabled</string>
 </resources>
