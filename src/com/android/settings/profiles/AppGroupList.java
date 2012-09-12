@@ -21,6 +21,7 @@ import java.util.UUID;
 import android.app.NotificationGroup;
 import android.app.ProfileManager;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -56,7 +57,10 @@ public class AppGroupList extends SettingsPreferenceFragment {
         refreshList();
 
         // On tablet devices remove the padding
+	/* Use "ro.disable_phablet_ui" to determine if we're using Tablet or Phablet UI
         if (Utils.isTablet(getActivity())) {
+	*/
+	if ("1".equals(SystemProperties.get("ro.disable_phablet_ui", "0"))) {
             getListView().setPadding(0, 0, 0, 0);
         }
 }

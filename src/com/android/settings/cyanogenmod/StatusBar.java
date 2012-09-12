@@ -17,6 +17,7 @@
 package com.android.settings.cyanogenmod;
 
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -116,12 +117,19 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
+	/* Use "ro.disable_phablet_ui" to determine if we're using Tablet or Phablet UI
         if (Utils.isTablet(getActivity())) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
         }
+	*/
+	if ("1".equals(SystemProperties.get("ro.disable_phablet_ui", "0"))) {
+	    mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
+	} else {
+	    mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
+	}
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

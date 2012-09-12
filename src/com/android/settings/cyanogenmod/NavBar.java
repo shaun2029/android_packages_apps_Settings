@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -70,7 +71,10 @@ public class NavBar extends Fragment {
     public void onResume() {
         super.onResume();
         // If running on a phone, remove padding around container
+	/* Use "ro.disable_phablet_ui" to determine if we're using Tablet or Phablet UI
         if (!Utils.isTablet(getActivity())) {
+	*/
+	if ("0".equals(SystemProperties.get("ro.disable_phablet_ui", "0"))) {
             mContainer.setPadding(0, 0, 0, 0);
         }
     }
