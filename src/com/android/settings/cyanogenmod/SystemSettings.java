@@ -26,6 +26,8 @@ import android.os.ServiceManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.IWindowManager;
 
@@ -60,7 +62,10 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
 
+	/*
         if (Utils.isTablet(getActivity())) {
+	*/
+	if (Settings.System.getInt(getActivity().getContentResolver(),Settings.System.TABLET_UI, 1) == 1) {
             if (mPhoneDrawer != null) {
                 getPreferenceScreen().removePreference(mPhoneDrawer);
             }
