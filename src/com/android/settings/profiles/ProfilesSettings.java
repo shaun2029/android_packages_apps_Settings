@@ -27,7 +27,6 @@ import android.app.ProfileManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.preference.PreferenceActivity;
 import android.provider.Settings;
 import android.view.Gravity;
@@ -138,10 +137,7 @@ public class ProfilesSettings extends SettingsPreferenceFragment {
         }
 
         // If running on a phone, remove padding around tabs
-	/* Use "ro.disable_phablet_ui" to determine if we're using Tablet or Phablet UI
-        if (Utils.isTablet(getActivity())) {
-	*/
-	if ("1".equals(SystemProperties.get("ro.disable_phablet_ui", "0"))) {
+        if (!Utils.isTablet(getActivity())) {
             mContainer.setPadding(0, 0, 0, 0);
         }
     }

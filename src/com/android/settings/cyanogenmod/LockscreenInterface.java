@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -83,8 +82,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mBatteryStatus = (ListPreference) findPreference(KEY_ALWAYS_BATTERY_PREF);
         mBatteryStatus.setOnPreferenceChangeListener(this);
 
-        //mIsScreenLarge = Utils.isTablet(getActivity());
-	mIsScreenLarge = "1".equals(SystemProperties.get("ro.disable_phablet_ui", "0"));
+        mIsScreenLarge = Utils.isTablet(getActivity());
 
         updateCustomBackgroundSummary();
     }
