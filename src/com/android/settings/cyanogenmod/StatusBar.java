@@ -116,19 +116,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
-	/*
         if (Utils.isTablet(getActivity())) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
         }
-	*/
-	if (Settings.System.getInt(getActivity().getContentResolver(),Settings.System.TABLET_UI, 1) == 1) {
-	    mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
-	} else {
-	    mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
-	}
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
