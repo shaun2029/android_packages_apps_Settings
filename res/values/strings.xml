@@ -4269,4 +4269,8 @@
     <string name="hdmi_dual_on">HDMI dual display enabled</string>
     <string name="hdmi_dual_off">HDMI dual display disabled</string>
 
+    <!-- USB Mass Storage -->
+    <string name="usb_mass_storage_title">Mass storage</string>
+    <string name="usb_mass_storage_summary">Enable USB mass storage</string>
+
 </resources>
