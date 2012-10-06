@@ -41,11 +41,13 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
     private static final String PREF_NAV_BAR_COLOR = "navbar_color";
     private static final String PREF_NAV_BAR_COLOR_DEF = "navbar_color_default";
     private static final String NAV_BAR_STATUS = "nav_bar_status";
-    private static final String NAV_BAR_EDITOR = "navigation_bar_editor";
+    private static final String NAV_BAR_TRANSPARENCY = "nav_bar_transparency";
+    private static final String NAV_BAR_EDITOR = "nav_bar_editor";
     private static final String NAV_BAR_TABUI_MENU = "nav_bar_tabui_menu";
 
     private CheckBoxPreference mNavigationBarShow;
     private ColorPickerPreference mNavigationBarColor;
+    private ListPreference mNavigationBarTransparency;
     private PreferenceScreen mNavigationBarEditor;
     private CheckBoxPreference mMenuButtonShow;
     private PreferenceCategory mPrefCategory;
@@ -66,6 +68,8 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
         mMenuButtonShow = (CheckBoxPreference) prefSet.findPreference(NAV_BAR_TABUI_MENU);
         mResetColor = (Preference) findPreference(PREF_NAV_BAR_COLOR_DEF);
         mResetColor.setOnPreferenceClickListener(this);
+        mNavigationBarTransparency = (ListPreference) prefSet.findPreference(NAV_BAR_TRANSPARENCY);
+
         IWindowManager wm = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
             mNavigationBarShow.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
@@ -80,11 +84,17 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
         mNavigationBarEditor.setEnabled(mNavigationBarShow.isChecked());
         mMenuButtonShow.setEnabled(mNavigationBarShow.isChecked());
 
+        int navBarTransparency = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.NAV_BAR_TRANSPARENCY, 100);
+        mNavigationBarTransparency.setValue(String.valueOf(navBarTransparency));
+        mNavigationBarTransparency.setOnPreferenceChangeListener(this);
+
         mPrefCategory = (PreferenceCategory) findPreference(NAV_BAR_CATEGORY);
 
         if (!Utils.isTablet()) {
             mPrefCategory.removePreference(mMenuButtonShow);
         } else {
+            mPrefCategory.removePreference(mNavigationBarTransparency);
             mPrefCategory.removePreference(mNavigationBarEditor);
         }
     }
@@ -109,6 +119,11 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NAV_BAR_COLOR, color);
             mNavigationBarColor.onColorChanged(color);
+        } else if (preference == mNavigationBarTransparency) {
+            int navBarTransparency = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.NAV_BAR_TRANSPARENCY, navBarTransparency);
+            return true;
         }
         return false;
     }

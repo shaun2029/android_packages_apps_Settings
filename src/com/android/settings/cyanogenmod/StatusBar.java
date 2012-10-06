@@ -47,6 +47,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_DONOTDISTURB = "status_bar_donotdisturb";
     private static final String STATUS_BAR_WEEKDAY = "status_bar_weekday";
     private static final String STATUS_BAR_DAYMONTH = "status_bar_daymonth";
+    private static final String STATUS_BAR_TRANSPARENCY = "status_bar_transparency";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -54,6 +55,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private ListPreference mStatusBarCmSignal;
     private ListPreference mStatusBarWeekday;
     private ListPreference mStatusBarDaymonth;
+    private ListPreference mStatusbarTransparency;
     private CheckBoxPreference mStatusBarClock;
     private CheckBoxPreference mStatusBarCenterClock;
     private CheckBoxPreference mStatusBarBrightnessControl;
@@ -82,6 +84,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarDoNotDisturb = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_DONOTDISTURB);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
+        mStatusbarTransparency = (ListPreference) prefSet.findPreference(STATUS_BAR_TRANSPARENCY);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -139,6 +142,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 Settings.System.MAX_NOTIFICATION_ICONS, 2);
         mMaxNotIcons.setValue(String.valueOf(maxNotIcons));
         mMaxNotIcons.setOnPreferenceChangeListener(this);
+
+        int statusBarTransparency = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_TRANSPARENCY, 100);
+        mStatusbarTransparency.setValue(String.valueOf(statusBarTransparency));
+        mStatusbarTransparency.setOnPreferenceChangeListener(this);
 
         int signalStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_SIGNAL_TEXT, 0);
@@ -199,6 +207,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             int maxNotIcons = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.MAX_NOTIFICATION_ICONS, maxNotIcons);
+            return true;
+        } else if (preference == mStatusbarTransparency) {
+            int statusBarTransparency = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_TRANSPARENCY, statusBarTransparency);
             return true;
         } else if (preference == mStatusBarCmSignal) {
             int signalStyle = Integer.valueOf((String) newValue);
