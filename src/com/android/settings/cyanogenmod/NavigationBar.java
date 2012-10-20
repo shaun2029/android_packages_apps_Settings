@@ -107,6 +107,11 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NAV_BAR_COLOR, intHex);
             return true;
+        } else if (preference == mNavigationBarTransparency) {
+            int navBarTransparency = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.NAV_BAR_TRANSPARENCY, navBarTransparency);
+            return true;
         }
 
         return false;
@@ -119,11 +124,6 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NAV_BAR_COLOR, color);
             mNavigationBarColor.onColorChanged(color);
-        } else if (preference == mNavigationBarTransparency) {
-            int navBarTransparency = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.NAV_BAR_TRANSPARENCY, navBarTransparency);
-            return true;
         }
         return false;
     }
