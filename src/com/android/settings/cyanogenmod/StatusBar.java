@@ -84,11 +84,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
         mStatusBarShowAmPm = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_AM_PM);
         mStatusBarAmPmSize = (ListPreference) prefSet.findPreference(STATUS_BAR_AM_PM_SIZE);
+        mStatusBarAmPmSize.setEnabled(mStatusBarShowAmPm.isChecked() && mStatusBarClock.isChecked());
         mStatusBarBattery = (ListPreference) prefSet.findPreference(STATUS_BAR_BATTERY);
         mStatusBarShowWeekday = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_WEEKDAY);
         mStatusBarWeekdaySize = (ListPreference) prefSet.findPreference(STATUS_BAR_WEEKDAY_SIZE);
+        mStatusBarWeekdaySize.setEnabled(mStatusBarShowWeekday.isChecked() && mStatusBarClock.isChecked());
         mStatusBarShowDaymonth = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_DAYMONTH);
         mStatusBarDaymonthSize = (ListPreference) prefSet.findPreference(STATUS_BAR_DAYMONTH_SIZE);
+        mStatusBarDaymonthSize.setEnabled(mStatusBarShowDaymonth.isChecked() && mStatusBarClock.isChecked());
         mMaxNotIcons = (ListPreference) prefSet.findPreference(NUMBER_NOT_ICONS);
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarDoNotDisturb = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_DONOTDISTURB);
@@ -102,10 +105,13 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarCenterClock.setEnabled(mStatusBarClock.isChecked());
         mStatusBarShowAmPm.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_SHOW_AM_PM, 0) == 1));
+        mStatusBarShowAmPm.setEnabled(mStatusBarClock.isChecked());
         mStatusBarShowWeekday.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_SHOW_WEEKDAY, 0) == 1));
+        mStatusBarShowWeekday.setEnabled(mStatusBarClock.isChecked());
         mStatusBarShowDaymonth.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_SHOW_DAYMONTH, 0) == 1));
+        mStatusBarShowDaymonth.setEnabled(mStatusBarClock.isChecked());
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
         mStatusBarDoNotDisturb.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
@@ -249,6 +255,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CLOCK, value ? 1 : 0);
             mStatusBarCenterClock.setEnabled(value);
+            mStatusBarShowAmPm.setEnabled(value);
+            mStatusBarShowWeekday.setEnabled(value);
+            mStatusBarShowDaymonth.setEnabled(value);
+            mStatusBarWeekdaySize.setEnabled(value && mStatusBarShowWeekday.isChecked());
+            mStatusBarAmPmSize.setEnabled(value && mStatusBarShowAmPm.isChecked());
+            mStatusBarDaymonthSize.setEnabled(value && mStatusBarShowDaymonth.isChecked());
             return true;
         } else if (preference == mStatusBarCenterClock) {
             value = mStatusBarCenterClock.isChecked();
@@ -259,16 +271,19 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarShowAmPm.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_AM_PM, value ? 1 : 0);
+            mStatusBarAmPmSize.setEnabled(value);
             return true;
         } else if (preference == mStatusBarShowWeekday) {
             value = mStatusBarShowWeekday.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_WEEKDAY, value ? 1 : 0);
+            mStatusBarWeekdaySize.setEnabled(value);
             return true;
         } else if (preference == mStatusBarShowDaymonth) {
             value = mStatusBarShowDaymonth.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_DAYMONTH, value ? 1 : 0);
+            mStatusBarDaymonthSize.setEnabled(value);
             return true;
         } else if (preference == mStatusBarDoNotDisturb) {
             value = mStatusBarDoNotDisturb.isChecked();
