@@ -186,6 +186,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
         mPrefCategoryClock = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_CLOCK);
 
+        updatePreferences(mStatusBarClock.isChecked());
+
         if (Utils.isTablet()) {
             mPrefCategoryClock.removePreference(mStatusBarCenterClock);
             mPrefCategoryGeneral.removePreference(mStatusbarTransparency);
@@ -195,6 +197,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mPrefCategoryGeneral.removePreference(mMaxNotIcons);
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
         }
+    }
+
+    public void updatePreferences(boolean value) {
+        mStatusBarCenterClock.setEnabled(value);
+        mStatusBarShowAmPm.setEnabled(value);
+        mStatusBarShowWeekday.setEnabled(value);
+        mStatusBarShowDaymonth.setEnabled(value);
+        mStatusBarWeekdaySize.setEnabled(value && mStatusBarShowWeekday.isChecked());
+        mStatusBarAmPmSize.setEnabled(value && mStatusBarShowAmPm.isChecked());
+        mStatusBarDaymonthSize.setEnabled(value && mStatusBarShowDaymonth.isChecked());
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -254,13 +266,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarClock.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CLOCK, value ? 1 : 0);
-            mStatusBarCenterClock.setEnabled(value);
-            mStatusBarShowAmPm.setEnabled(value);
-            mStatusBarShowWeekday.setEnabled(value);
-            mStatusBarShowDaymonth.setEnabled(value);
-            mStatusBarWeekdaySize.setEnabled(value && mStatusBarShowWeekday.isChecked());
-            mStatusBarAmPmSize.setEnabled(value && mStatusBarShowAmPm.isChecked());
-            mStatusBarDaymonthSize.setEnabled(value && mStatusBarShowDaymonth.isChecked());
+            updatePreferences(value);
             return true;
         } else if (preference == mStatusBarCenterClock) {
             value = mStatusBarCenterClock.isChecked();

@@ -1891,12 +1891,11 @@
     <!-- Power Widget  -->
 
     <!-- Status bar  -->
-    <string name="combined_status_bar_title">@string/status_bar_title</string>
     <string name="status_bar_title">Statuslinje</string>
+    <string name="status_bar_clock_small">Lille (standard)</string>
     <string name="status_bar_clock_title">Ur</string>
     <string name="status_bar_general_title">Generelt</string>
     <string name="status_bar_show_clock_title">Vis ur</string>
-    <string name="status_bar_am_pm_title">AM/PM</string>
     <string name="status_bar_am_pm_info">24-timers ur er aktiveret</string>
     <string name="status_bar_battery_title">Batteristatus</string>
     <string name="status_bar_toggle_brightness">Lysstyrkeregulering</string>

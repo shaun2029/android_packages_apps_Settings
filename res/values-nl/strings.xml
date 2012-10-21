@@ -1861,10 +1861,12 @@ Schakel het scherm uit om de geselecteerde melding in actie te zien of annuleer 
 
     <!-- Status bar -->
     <string name="status_bar_title">Statusbalk</string>
+    <string name="status_bar_clock_normal">Normaal</string>
+    <string name="status_bar_clock_small">Klein (standaard)</string>
     <string name="status_bar_clock_title">Klok</string>
     <string name="status_bar_general_title">Algemeen</string>
     <string name="status_bar_show_clock_title">Klok tonen</string>
-    <string name="status_bar_am_pm_title">12-uurs formaat</string>
+    <string name="status_bar_cat_am_pm_title">12-uurs formaat</string>
     <string name="status_bar_am_pm_info">24-uurs formaat ingeschakeld</string>
     <string name="status_bar_battery_title">Opmaak batterijstatus</string>
     <string name="status_bar_toggle_brightness">Helderheid beheren</string>

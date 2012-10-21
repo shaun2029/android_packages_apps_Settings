@@ -1836,10 +1836,11 @@
     <string name="hardware_keys_action_in_app_search">Haku sovelluksessa</string>
     <string name="combined_status_bar_title">@string/status_bar_title</string>
     <string name="status_bar_title">Tilapalkki</string>
+    <string name="status_bar_clock_normal">Normaali</string>
+    <string name="status_bar_clock_small">Pieni (oletus)</string>
     <string name="status_bar_clock_title">Kello</string>
     <string name="status_bar_general_title">Yleiset</string>
     <string name="status_bar_show_clock_title">Näytä kello</string>
-    <string name="status_bar_am_pm_title">AM/PM kello</string>
     <string name="status_bar_am_pm_info">24 tunnin kello on valittu</string>
     <string name="status_bar_battery_title">Akkunäytön ulkoasu</string>
     <string name="status_bar_toggle_brightness">Kirkkauden säätö</string>

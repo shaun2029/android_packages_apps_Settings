@@ -1922,10 +1922,11 @@
 
     <!-- Status bar #CM -->
     <string name="status_bar_title">Строка состояния</string>
+    <string name="status_bar_clock_normal">Нормальный</string>
+    <string name="status_bar_clock_small">Маленький (по умолчанию)</string>
     <string name="status_bar_clock_title">Часы</string>
     <string name="status_bar_general_title">Основные</string>
     <string name="status_bar_show_clock_title">Показывать часы</string>
-    <string name="status_bar_am_pm_title">Стиль AM/PM</string>
     <string name="status_bar_am_pm_info">Включен 24-часовой формат</string>
     <string name="status_bar_battery_title">Стиль батареи</string>
     <string name="status_bar_toggle_brightness">Управление яркостью</string>

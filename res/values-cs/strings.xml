@@ -1839,8 +1839,9 @@
     <string name="title_toggle_lte">Přepínač LTE</string>
     <string name="combined_status_bar_title">@string/status_bar_title</string>
     <string name="status_bar_title">Stavová lišta</string>
+    <string name="status_bar_clock_normal">Normální</string>
+    <string name="status_bar_clock_small">Malý (výchozí)</string>
     <string name="status_bar_general_title">Hlavní</string>
-    <string name="status_bar_am_pm_title">AM/PM styl</string>
     <string name="status_bar_am_pm_info">24-hodinový mód povolen</string>
     <string name="status_bar_battery_title">Indikátor stavu baterie</string>
     <string name="status_bar_signal_text_title">Styl ukazatele síly signálu</string>

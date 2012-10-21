@@ -1890,10 +1890,11 @@
 
     <!-- Status bar -->
     <string name="status_bar_title">Statusleiste</string>
+    <string name="status_bar_clock_small">Klein (Standard)</string>
     <string name="status_bar_clock_title">Uhrzeit</string>
     <string name="status_bar_general_title">Allgemein</string>
     <string name="status_bar_show_clock_title">Zeige Uhr</string>
-    <string name="status_bar_am_pm_title">Tageszeitanzeige</string>
+    <string name="status_bar_cat_am_pm_title">Tageszeitanzeige</string>
     <string name="status_bar_battery_title">Batteriestatus</string>
     <string name="status_bar_toggle_brightness">Helligkeitsregler</string>
     <string name="status_bar_toggle_brightness_summary">Änderung der Helligkeit durch Wischen über die Statusleiste</string>

@@ -1920,10 +1920,12 @@
 
     <!-- Status bar  -->
     <string name="status_bar_title">状态栏</string>
+    <string name="status_bar_clock_normal">正常</string>
+    <string name="status_bar_clock_small">小 (默认)</string>
     <string name="status_bar_clock_title">时钟</string>
     <string name="status_bar_general_title">常规</string>
     <string name="status_bar_show_clock_title">显示时钟</string>
-    <string name="status_bar_am_pm_title">上午/下午样式</string>
+    <string name="status_bar_cat_am_pm_title">上午/下午</string>
     <string name="status_bar_am_pm_info">24小时时钟已启用</string>
     <string name="status_bar_battery_title">电池状态样式</string>
     <string name="status_bar_toggle_brightness">亮度控制</string>

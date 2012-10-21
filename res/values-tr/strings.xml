@@ -1898,10 +1898,11 @@
     <!-- Status bar #CM -->
     <string name="combined_status_bar_title">@string/status_bar_title</string>
     <string name="status_bar_title">Durum çubuğu</string>
+    <string name="status_bar_clock_normal">Normal</string>
+    <string name="status_bar_clock_small">Küçük (varsayılan)</string>
     <string name="status_bar_clock_title">Saat</string>
     <string name="status_bar_general_title">Genel</string>
     <string name="status_bar_show_clock_title">Saati göster</string>
-    <string name="status_bar_am_pm_title">AM/PM gösterimi</string>
     <string name="status_bar_am_pm_info">24 saatlik gösterim etkin</string>
     <string name="status_bar_battery_title">Pil göstergesi</string>
     <string name="status_bar_toggle_brightness">Parlaklık kontrolü</string>

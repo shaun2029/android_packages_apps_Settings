@@ -1918,7 +1918,6 @@
     <string name="status_bar_clock_title">Zegar</string>
     <string name="status_bar_general_title">Ogólne</string>
     <string name="status_bar_show_clock_title">Pokaż zegar</string>
-    <string name="status_bar_am_pm_title">Wyświetlanie AM/PM</string>
     <string name="status_bar_am_pm_info">24-godzinny zegar jest aktywny</string>
     <string name="status_bar_battery_title">Wyświetlanie stanu baterii</string>
     <string name="status_bar_toggle_brightness">Ustawianie jasności</string>

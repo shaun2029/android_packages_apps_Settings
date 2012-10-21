@@ -1933,9 +1933,10 @@
 
     <!-- Status bar #CM -->
     <string name="status_bar_title">ステータスバー</string>
+    <string name="status_bar_clock_normal">ノーマル</string>
+    <string name="status_bar_clock_small">小さく (デフォルト)</string>
     <string name="status_bar_general_title">一般</string>
     <string name="status_bar_show_clock_title">時計を表示</string>
-    <string name="status_bar_am_pm_title">AM/PMスタイル</string>
     <string name="status_bar_am_pm_info">24時間スタイルが有効</string>
     <string name="status_bar_clock_title">時計</string>
     <string name="status_bar_battery_title">バッテリー状態のスタイル</string>

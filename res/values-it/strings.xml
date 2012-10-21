@@ -1863,10 +1863,11 @@
     <string name="hardware_keys_action_voice_search">Ricerca vocale</string>
     <string name="hardware_keys_action_in_app_search">Ricerca in applicazioni</string>
     <string name="status_bar_title">"Barra di stato"</string>
+    <string name="status_bar_clock_normal">"Normale"</string>
+    <string name="status_bar_clock_small">"Piccolo (predefinito)"</string>
     <string name="status_bar_clock_title">"Orologio"</string>
     <string name="status_bar_general_title">"Generico"</string>
     <string name="status_bar_show_clock_title">"Mostra orologio"</string>
-    <string name="status_bar_am_pm_title">"Indicatore AM/PM"</string>
     <string name="status_bar_am_pm_info">Formato 24 ore abilitato</string>
     <string name="status_bar_battery_title">"Stile indicatore batteria"</string>
     <string name="status_bar_toggle_brightness">"Controllo luminosità"</string>

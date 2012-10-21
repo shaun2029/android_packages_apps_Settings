@@ -204,10 +204,10 @@
 
     <!-- Status bar  -->
     <string name="status_bar_title">Barre d\'état</string>
+    <string name="status_bar_clock_small">Petit (Défaut)</string>
     <string name="status_bar_clock_title">Horloge</string>
     <string name="status_bar_general_title">Général</string>
     <string name="status_bar_show_clock_title">Afficher l\'heure</string>
-    <string name="status_bar_am_pm_title">Indicateur AM/PM</string>
     <string name="status_bar_am_pm_info">Horloge 24 heures activée</string>
     <string name="status_bar_battery_title">Affichage du niveau de batterie</string>
     <string name="status_bar_toggle_brightness">Rétroéclairage</string>

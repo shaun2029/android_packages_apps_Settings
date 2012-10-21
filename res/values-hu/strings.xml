@@ -1930,10 +1930,11 @@
     <!-- Status bar  -->
     <string name="combined_status_bar_title">@string/status_bar_title</string>
     <string name="status_bar_title">Értesítési sáv</string>
+    <string name="status_bar_clock_normal">Normál</string>
+    <string name="status_bar_clock_small">Kicsi (alapbeállítás)</string>
     <string name="status_bar_clock_title">Óra</string>
     <string name="status_bar_general_title">Általános</string>
     <string name="status_bar_show_clock_title">Óra mutatása</string>
-    <string name="status_bar_am_pm_title">AM/PM stílus</string>
     <string name="status_bar_am_pm_info">24 órás megjelenítés aktív</string>
     <string name="status_bar_battery_title">Akkumulátor állapotjelző stílusa</string>
     <string name="status_bar_toggle_brightness">Fényerő vezérlés</string>
