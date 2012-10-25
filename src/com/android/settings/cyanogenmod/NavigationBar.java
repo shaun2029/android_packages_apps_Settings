@@ -112,24 +112,25 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        int mIndex = -1;
+        int index = -1;
         if (preference == mNavigationBarColor) {
-            mIndex = ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR;
+            index = ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR;
         } else if (preference == mNavigationButtonColor) {
-            mIndex = ExtendedPropertiesUtils.PARANOID_COLORS_NAVBUTTON;
+            index = ExtendedPropertiesUtils.PARANOID_COLORS_NAVBUTTON;
         } else if (preference == mNavigationGlowColor) {
-            mIndex = ExtendedPropertiesUtils.PARANOID_COLORS_NAVGLOW;
+            index = ExtendedPropertiesUtils.PARANOID_COLORS_NAVGLOW;
         }
-        
-        if (mIndex != -1) {
+
+        if (index != -1) {
             String mSetting = Settings.System.getString(mContext.getContentResolver(),
-                ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[mIndex]);
+                    ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[index]);
             String[] mColors = (mSetting == null || mSetting.equals("") ?
-                ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[mIndex] :
-                mSetting).split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+                    ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[index] :
+                    mSetting).split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
             Settings.System.putString(mContext.getContentResolver(),
-                ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[mIndex], ColorPickerPreference.convertToARGB(
-                Integer.valueOf(String.valueOf(newValue))).substring(1) + "|" + mColors[1] + "|1");
+                    ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[index],
+                    ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(
+                    newValue))).substring(1) + "|" + mColors[1] + "|1");
             return true;
         }
         return false;
@@ -139,24 +140,24 @@ public class NavigationBar extends SettingsPreferenceFragment implements OnPrefe
     public boolean onPreferenceClick(Preference pref) {
         if (pref == mResetColor) {
             for (int i=ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR;
-                i <= ExtendedPropertiesUtils.PARANOID_COLORS_NAVGLOW; i++) {
+                    i <= ExtendedPropertiesUtils.PARANOID_COLORS_NAVGLOW; i++) {
                 String mSetting = Settings.System.getString(mContext.getContentResolver(),
-                    ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[i]);
+                        ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[i]);
                 String[] mColors = (mSetting == null || mSetting.equals("") ?
-                    ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[i] :
-                    mSetting).split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+                        ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[i] :
+                        mSetting).split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
                 Settings.System.putString(getActivity().getContentResolver(),
-                    ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[i], ExtendedPropertiesUtils.
-                    PARANOID_COLORS_DEFAULTS[i].split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER)
-                    [0] + "|" + mColors[1] + "|1");
+                        ExtendedPropertiesUtils.PARANOID_COLORS_SETTINGS[i], ExtendedPropertiesUtils.
+                        PARANOID_COLORS_DEFAULTS[i].split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER)
+                        [0] + "|" + mColors[1] + "|1");
             }
 
             mNavigationBarColor.onColorChanged(ExtendedPropertiesUtils.PARANOID_COLORCODES_DEFAULTS[
-                ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR]);
+                    ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR]);
             mNavigationButtonColor.onColorChanged(ExtendedPropertiesUtils.PARANOID_COLORCODES_DEFAULTS[
-                ExtendedPropertiesUtils.PARANOID_COLORS_NAVBUTTON]);
+                    ExtendedPropertiesUtils.PARANOID_COLORS_NAVBUTTON]);
             mNavigationGlowColor.onColorChanged(ExtendedPropertiesUtils.PARANOID_COLORCODES_DEFAULTS[
-                ExtendedPropertiesUtils.PARANOID_COLORS_NAVGLOW]);
+                    ExtendedPropertiesUtils.PARANOID_COLORS_NAVGLOW]);
         }
         return false;
     }

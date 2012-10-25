@@ -243,14 +243,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     Settings.System.MAX_NOTIFICATION_ICONS, maxNotIcons);
             return true;
         } else if (preference == mStatusBarColor) {
-            String mSetting = Settings.System.getString(getActivity().getContentResolver(),
-                Settings.System.STATUS_BAR_COLOR);
-            String[] mColors = (mSetting == null || mSetting.equals("") ?
-                ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] :
-                mSetting).split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+            String setting = Settings.System.getString(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_COLOR);
+            String[] mColors = (setting == null || setting.equals("") ?
+                    ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] :
+                    setting).split(ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
             Settings.System.putString(getActivity().getContentResolver(),
-                Settings.System.STATUS_BAR_COLOR, ColorPickerPreference.convertToARGB(
-                Integer.valueOf(String.valueOf(newValue))).substring(1) + "|" + mColors[1] + "|1");
+                    Settings.System.STATUS_BAR_COLOR, ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue))).substring(1) + "|" + mColors[1] + "|1");
             return true;
          } else if (preference == mStatusBarCmSignal) {
             int signalStyle = Integer.valueOf((String) newValue);
