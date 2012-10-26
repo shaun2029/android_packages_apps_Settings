@@ -24,11 +24,9 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.net.wimax.WimaxHelper;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ColorPickerPreference;
@@ -45,7 +43,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.android.settings.Utils;
 
 import com.android.internal.telephony.Phone;
 import com.android.settings.cyanogenmod.TouchInterceptor;
@@ -61,6 +58,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
     private static final String PREF_SHOW_TOGGLES = "enable_toggles";
     private static final String PREF_SHOW_BRIGHTNESS = "show_brightness_slider";
+    private static final String PREF_SHOW_SETTINGS = "show_settings";
     private static final String PREF_ENABLED_TOGGLES = "enabled_toggles";
     private static final String PREF_TOGGLES_ORDER = "toggles_order";
     private static final String PREF_TOGGLES_STYLE = "toggle_style";
@@ -84,7 +82,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
     private static final int LTE = 10;
     private static final int TORCH = 12;
     private static final int NFC = 14;
-    private static final int DONOTDISTURB = 15;
+    // private static final int DONOTDISTURB = 15;
 
     // Arrays containing the entire set of toggles
     private static ArrayList<String> allEntries;
@@ -98,6 +96,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
     private static Context mContext;
 
+    CheckBoxPreference mShowSettings;
     CheckBoxPreference mShowToggles;
     Preference mEnabledToggles;
     Preference mToggleOrder;
@@ -126,6 +125,10 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
         mShowBrightness = (CheckBoxPreference) findPreference(PREF_SHOW_BRIGHTNESS);
         mShowBrightness.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_TOGGLES_SHOW_BRIGHTNESS, 0) == 1);
+
+        mShowSettings = (CheckBoxPreference) findPreference(PREF_SHOW_SETTINGS);
+        mShowSettings.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_SHOW_SETTINGS, 1) == 1);
 
         mToggleStyle = (ListPreference) findPreference(PREF_TOGGLES_STYLE);
         mToggleStyle.setOnPreferenceChangeListener(this);
@@ -172,6 +175,11 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
             boolean value = mShowBrightness.isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.STATUS_BAR_TOGGLES_SHOW_BRIGHTNESS, value ? 1 : 0);
+            return true;
+        } else if (preference == mShowSettings) {
+            boolean value = mShowSettings.isChecked();
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_SHOW_SETTINGS, value ? 1 : 0);
             return true;
         } else if (preference == mEnabledToggles) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -229,7 +237,6 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        boolean result = false;
         if (preference == mToggleStyle) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContext.getContentResolver(),
@@ -481,7 +488,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
         // Check if torch app is installed
         try{
-            ApplicationInfo info = pm.getApplicationInfo("net.cactii.flash2", 0);
+            pm.getApplicationInfo("net.cactii.flash2", 0);
         } catch(PackageManager.NameNotFoundException e){
             removeEntry(values[TORCH]);
         }

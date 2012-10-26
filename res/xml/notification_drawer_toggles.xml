@@ -53,6 +53,12 @@
             android:summary="@string/show_brightness_summary"
             android:defaultValue="false" />
 
+        <CheckBoxPreference
+            android:key="show_settings"
+            android:title="@string/show_settings_title"
+            android:summary="@string/show_settings_summary"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
