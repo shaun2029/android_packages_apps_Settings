@@ -114,23 +114,23 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
         mShowToggles = (CheckBoxPreference) findPreference(PREF_SHOW_TOGGLES);
         mShowToggles.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES_ENABLE, 0) == 1);
+                Settings.System.STATUS_BAR_TOGGLES_ENABLE, 0) == 1);
 
         mDisableScrolling = (CheckBoxPreference) findPreference(PREF_TOGGLES_DISABLE_SCROLLING);
         mDisableScrolling.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES_DISABLE_SCROLL, 0) == 1);
+                Settings.System.STATUS_BAR_TOGGLES_DISABLE_SCROLL, 0) == 1);
 
         mShowBrightness = (CheckBoxPreference) findPreference(PREF_SHOW_BRIGHTNESS);
         mShowBrightness.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES_SHOW_BRIGHTNESS, 0) == 1);
+                Settings.System.STATUS_BAR_TOGGLES_SHOW_BRIGHTNESS, 0) == 1);
 
         mToggleStyle = (ListPreference) findPreference(PREF_TOGGLES_STYLE);
         mToggleStyle.setOnPreferenceChangeListener(this);
         mToggleStyle.setValue(Integer.toString(Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES_STYLE, LAYOUT_TOGGLE)));
+                Settings.System.STATUS_BAR_TOGGLES_STYLE, LAYOUT_TOGGLE)));
 
         int val = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES_LAYOUT, LAYOUT_TOGGLE);
+                Settings.System.STATUS_BAR_TOGGLES_LAYOUT, LAYOUT_TOGGLE);
 
         mTogglesLayout = (ListPreference) findPreference(PREF_ALT_BUTTON_LAYOUT);
         mTogglesLayout.setOnPreferenceChangeListener(this);
@@ -154,17 +154,17 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
         if(preference == mShowToggles) {
             boolean value = mShowToggles.isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_ENABLE, value ? 1 : 0);
+                    Settings.System.STATUS_BAR_TOGGLES_ENABLE, value ? 1 : 0);
             return true;
         } else if(preference == mDisableScrolling) {
             boolean value = mDisableScrolling.isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_DISABLE_SCROLL, value ? 1 : 0);
+                    Settings.System.STATUS_BAR_TOGGLES_DISABLE_SCROLL, value ? 1 : 0);
             return true;
         } else if (preference == mShowBrightness) {
             boolean value = mShowBrightness.isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_SHOW_BRIGHTNESS, value ? 1 : 0);
+                    Settings.System.STATUS_BAR_TOGGLES_SHOW_BRIGHTNESS, value ? 1 : 0);
             return true;
         } else if (preference == mEnabledToggles) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -226,12 +226,12 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
         if (preference == mToggleStyle) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_STYLE, val);
+                    Settings.System.STATUS_BAR_TOGGLES_STYLE, val);
             return true;
         } else if (preference == mTogglesLayout) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_LAYOUT, val);
+                    Settings.System.STATUS_BAR_TOGGLES_LAYOUT, val);
             adjustPreferences(val);
             return true;
         }
@@ -500,13 +500,13 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
             }
         }
 
-        Settings.System.putString(c.getContentResolver(), Settings.System.STATUSBAR_TOGGLES,
+        Settings.System.putString(c.getContentResolver(), Settings.System.STATUS_BAR_TOGGLES,
                 newToggles);
     }
 
     public static ArrayList<String> getTogglesStringArray(Context c) {
         String cluster = Settings.System.getString(c.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES);
+                Settings.System.STATUS_BAR_TOGGLES);
 
         if (cluster == null) {
             Log.e(TAG, "cluster was null");
