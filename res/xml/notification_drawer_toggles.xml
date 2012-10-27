@@ -14,15 +14,21 @@
         android:summary="@string/enabled_toggles_summary" />
 
     <Preference
-        android:key="toggles_layout"
+        android:key="toggles_order"
         android:title="@string/toggles_order_title"
         android:summary="@string/toggles_order_summary" />
 
     <ListPreference
-        android:key="toggles_layout_preference"
+        android:key="toggles_layout"
         android:title="@string/toggles_layout_title"
         android:entries="@array/toggles_layout_entries"
         android:entryValues="@array/toggles_layout_values" />
+
+    <ColorPickerPreference
+        android:key="toggles_color"
+        android:title="@string/toggles_color_title"
+        android:summary="@string/toggles_color_summary"
+        android:defaultValue="#FF33B5E5" />
 
     <PreferenceCategory
         android:key="advanced_cat"

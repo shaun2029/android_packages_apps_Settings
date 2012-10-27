@@ -4313,6 +4313,8 @@
     <string name="toggle_layout_toggle">Toggle button</string>
     <string name="toggle_layout_button">Holo button</string>
     <string name="toggle_layout_multirow">Multi-row toggles</string>
+    <string name="toggles_color_title">Color scheme</string>
+    <string name="toggles_color_summary">Defines the color to be used by toggles. Off state will be slightly darker than the selected color</string>
     <string name="enabled_toggles_title">Enabled toggles</string>
     <string name="enabled_toggles_summary">Choose toggles to display</string>
     <string name="toggles_display_dialog">Choose which toggles to use</string>

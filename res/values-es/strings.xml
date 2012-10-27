@@ -1895,6 +1895,8 @@
     <string name="toggle_layout_toggle">Botón alterno</string>
     <string name="toggle_layout_button">Botón holo</string>
     <string name="toggle_layout_multirow">Multiples filas</string>
+    <string name="toggles_color_title">Combinación de colores</string>
+    <string name="toggles_color_summary">Define el color a ser usado por los controles. El estado apagado será un poco mas oscuro</string>
     <string name="enabled_toggles_title">Controles activos</string>
     <string name="enabled_toggles_summary">Configurar los controles a mostrar</string>
     <string name="toggles_display_dialog">Seleccione los controles deseados:</string>
