@@ -2279,7 +2279,6 @@
     <string name="power_menu_reboot_title">Reiniciar</string>
     <string name="power_menu_expanded_desktop">Escritorio expandido</string>
     <string name="power_menu_screenshot_title">Capturar pantalla</string>
-    <string name="power_menu_expanded_desktop">Extender escritorio</string>
     <string name="power_menu_profiles_title">Perfiles</string>
     <string name="power_menu_airplane_title">Modo avión</string>
     <string name="power_menu_silent_title">Modo silencio</string>
