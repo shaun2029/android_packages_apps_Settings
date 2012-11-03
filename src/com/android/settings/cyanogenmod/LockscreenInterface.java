@@ -32,6 +32,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.preference.ColorPickerPreference;
 import android.preference.CheckBoxPreference;
