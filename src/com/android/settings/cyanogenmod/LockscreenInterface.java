@@ -21,8 +21,10 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ColorPickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -30,6 +32,9 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.preference.ColorPickerPreference;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -37,16 +42,16 @@ import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.Display;
+import android.view.IWindowManager;
 import android.view.Window;
 import android.widget.Toast;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.notificationlight.ColorPickerView;
 
 public class LockscreenInterface extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+        Preference.OnPreferenceChangeListener, ColorPickerDialog.OnColorChangedListener {
     private static final String TAG = "LockscreenInterface";
     private static final int LOCKSCREEN_BACKGROUND = 1024;
     public static final String KEY_WEATHER_PREF = "lockscreen_weather";
@@ -55,6 +60,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     public static final String KEY_SEE_TRHOUGH_PREF = "lockscreen_see_through";
     private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
     private static final String KEY_CLOCK_ALIGN = "lockscreen_clock_align";
+    private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
 
     private ListPreference mCustomBackground;
     private CheckBoxPreference mSeeThrough;
@@ -62,6 +68,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private Preference mCalendarPref;
     private ListPreference mBatteryStatus;
     private ListPreference mClockAlign;
+    private PreferenceScreen mLockscreenButtons;
     private Activity mActivity;
     ContentResolver mResolver;
 
@@ -96,6 +103,16 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
 
         mClockAlign = (ListPreference) findPreference(KEY_CLOCK_ALIGN);
         mClockAlign.setOnPreferenceChangeListener(this);
+
+        mLockscreenButtons = (PreferenceScreen) findPreference(KEY_LOCKSCREEN_BUTTONS);
+        IWindowManager wm = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
+        try {
+            if(!wm.hasHardwareKeys()){
+                getPreferenceScreen().removePreference(mLockscreenButtons);
+            }
+        } catch (RemoteException ex) {
+            // too bad, so sad, oh mom, oh dad
+        }
 
         updateCustomBackgroundSummary();
     }
@@ -176,6 +193,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     }
 
     @Override
+    public void onColorChanged(int color) {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_BACKGROUND, color);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == LOCKSCREEN_BACKGROUND) {
             if (resultCode == Activity.RESULT_OK) {
@@ -220,27 +243,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             switch (indexOf) {
                 //Displays color dialog when user has chosen color fill
                 case 0:
-                    final ColorPickerView colorView = new ColorPickerView(mActivity);
                     int currentColor = Settings.System.getInt(getContentResolver(),
                             Settings.System.LOCKSCREEN_BACKGROUND, -1);
-                    if (currentColor != -1) {
-                        colorView.setColor(currentColor);
-                    }
-                    colorView.setAlphaSliderVisible(true);
-                    new AlertDialog.Builder(mActivity)
-                    .setTitle(R.string.lockscreen_custom_background_dialog_title)
-                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_BACKGROUND, colorView.getColor());
-                            updateCustomBackgroundSummary();
-                        }
-                    }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).setView(colorView).show();
+                    ColorPickerDialog picker = new ColorPickerDialog(mActivity, currentColor);
+                    picker.setOnColorChangedListener(this);
+                    picker.setAlphaSliderVisible(true);
+                    picker.show();
                     return false;
                 //Launches intent for user to select an image/crop it to set as background
                 case 1:

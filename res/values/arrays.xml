@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
 **
@@ -444,6 +444,7 @@
         <item>Korea</item>
         <item>Turkey</item>
         <item>Singapore</item>
+        <item>Brazil</item>
     </string-array>
 
     <string-array name="wifi_countrycode_values" translatable="false">
@@ -457,6 +458,7 @@
         <item>KR</item>
         <item>TR</item>
         <item>SG</item>
+        <item>BR</item>
     </string-array>
 
     <!-- Display options for UsageStats class -->
@@ -1009,34 +1011,38 @@
         <item>26</item>
     </string-array>
 
-    <string-array name="entries_status_bar_am_pm">
-        <item>Normal</item>
-        <item>Small</item>
-        <item>None (default)</item>
+    <string-array name="entries_status_bar_clock">
+        <item>@string/status_bar_clock_normal</item>
+        <item>@string/status_bar_clock_small</item>
     </string-array>
 
-    <string-array name="values_status_bar_am_pm" translatable="false">
+    <string-array name="values_status_bar_clock" translatable="false">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
     </string-array>
 
-    <string-array name="entries_status_bar_battery">
-        <item>Icon (default)</item>
-        <item>Percentage</item>
-        <item>Hidden</item>
+    <string-array name="entries_status_bar_battery" translatable="false">
+        <item>@string/status_bar_style_icon</item>
+        <item>@string/status_bar_battery_status_text</item>
+        <item>@string/status_bar_battery_status_percentage</item>
+        <item>@string/status_bar_battery_status_circle</item>
+        <item>@string/status_bar_battery_status_circle_percentage</item>
+        <item>@string/status_bar_style_hidden</item>
     </string-array>
 
     <string-array name="values_status_bar_battery" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
      <string-array name="entries_status_bar_signal" translatable="false">
-        <item>@string/status_bar_signal_text_show_bars</item>
+        <item>@string/status_bar_style_icon</item>
         <item>@string/status_bar_signal_text_show_text</item>
-        <item>@string/status_bar_signal_text_hidden</item>
+        <item>@string/status_bar_style_hidden</item>
      </string-array>
 
      <string-array name="values_status_bar_signal" translatable="false">
@@ -1237,7 +1243,7 @@
     </string-array>
 
     <string-array name="notification_pulse_length_values" translatable="false">
-        <item>0</item>
+        <item>1</item>
         <item>250</item>
         <item>500</item>
         <item>1000</item>
@@ -1416,6 +1422,22 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="lockscreen_long_key_press_entries" translatable="false">
+        <item>@string/lockscreen_buttons_no_action</item>
+        <item>@string/lockscreen_buttons_next</item>
+        <item>@string/lockscreen_buttons_previous</item>
+        <item>@string/lockscreen_buttons_playpause</item>
+        <item>@string/lockscreen_buttons_toggle_sound</item>
+    </string-array>
+
+    <string-array name="lockscreen_long_key_press_values" translatable="false">
+        <item></item>
+        <item>NEXT</item>
+        <item>PREVIOUS</item>
+        <item>PLAYPAUSE</item>
+        <item>SOUND</item>
+    </string-array>
+
     <string-array name="hardware_keys_action_entries" translatable="false">
         <item>@string/hardware_keys_action_nothing</item>
         <item>@string/hardware_keys_action_menu</item>
@@ -1423,6 +1445,7 @@
         <item>@string/hardware_keys_action_search</item>
         <item>@string/hardware_keys_action_voice_search</item>
         <item>@string/hardware_keys_action_in_app_search</item>
+        <item>@string/hardware_keys_action_torch</item>
     </string-array>
 
     <string-array name="hardware_keys_action_values" translatable="false">
@@ -1432,6 +1455,7 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
     </string-array>
 
     <!--- Volume key cursor control -->
@@ -1460,12 +1484,16 @@
 
     <string-array name="toggles_layout_entries">
         <item>@string/toggle_layout_switch</item>
-        <item>@string/toggle_layout_icon</item>
+        <item>@string/toggle_layout_toggle</item>
+        <item>@string/toggle_layout_button</item>
+        <item>@string/toggle_layout_multirow</item>
     </string-array>
 
     <string-array name="toggles_layout_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="available_toggles_entries">
@@ -1506,4 +1534,44 @@
         <item>DONOTDISTURB</item>
     </string-array>
 
+    <!--- Sms security limit -->
+    <string-array name="sms_security_check_limit_entries" translatable="false">
+        <item>15</item>
+        <item>@string/sms_security_check_limit_default</item>
+        <item>50</item>
+        <item>100</item>
+        <item>300</item>
+        <item>500</item>
+        <item>1000</item>
+    </string-array>
+
+    <string-array name="sms_security_check_limit_values" translatable="false">
+        <item>15</item>
+        <item>30</item>
+        <item>50</item>
+        <item>100</item>
+        <item>300</item>
+        <item>500</item>
+        <item>1000</item>
+    </string-array>
+
+    <!-- Stylus Gestures -->
+    <string-array name="gestures_entries" translatable="false">
+        <item>@string/gestures_action_empty</item>
+        <item>@string/gestures_action_home</item>
+        <item>@string/gestures_action_back</item>
+        <item>@string/gestures_action_menu</item>
+        <item>@string/gestures_action_search</item>
+        <item>@string/gestures_action_recent</item>
+    </string-array>
+
+    <string-array name="gestures_values" translatable="false">
+        <item>1000</item>
+        <item>1001</item>
+        <item>1002</item>
+        <item>1003</item>
+        <item>1004</item>
+        <item>1005</item>
+    </string-array>
+    <!-- **** CYANOGENMOD EDITS END **** -->
 </resources>

@@ -375,18 +375,6 @@
     <item>26%</item>
   </string-array>
 
-  <string-array name="entries_status_bar_am_pm">
-    <item>Normál</item>
-    <item>Kicsi</item>
-    <item>Elrejtés (alapbeállítás)</item>
-  </string-array>
-
-  <string-array name="entries_status_bar_battery">
-    <item>Ikon (alapbeállítás)</item>
-    <item>Százalék</item>
-    <item>Elrejtés</item>
-  </string-array>
-
   <!-- Profile mode options. -->
   <string-array name="profile_entries">
     <item>Be</item>

@@ -14,15 +14,21 @@
         android:summary="@string/enabled_toggles_summary" />
 
     <Preference
-        android:key="toggles_layout"
+        android:key="toggles_order"
         android:title="@string/toggles_order_title"
         android:summary="@string/toggles_order_summary" />
 
     <ListPreference
-        android:key="toggles_layout_preference"
+        android:key="toggles_layout"
         android:title="@string/toggles_layout_title"
         android:entries="@array/toggles_layout_entries"
         android:entryValues="@array/toggles_layout_values" />
+
+    <ColorPickerPreference
+        android:key="toggles_color"
+        android:title="@string/toggles_color_title"
+        android:summary="@string/toggles_color_summary"
+        android:defaultValue="#FF33B5E5" />
 
     <PreferenceCategory
         android:key="advanced_cat"
@@ -36,10 +42,22 @@
             android:entryValues="@array/toggle_style_values" />
 
         <CheckBoxPreference
+            android:key="disable_scrollbar"
+            android:title="@string/toggles_disable_scrolling_title"
+            android:summary="@string/toggles_disable_scrolling_summary"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="show_brightness_slider"
             android:title="@string/show_brightness_title"
             android:summary="@string/show_brightness_summary"
             android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="show_settings"
+            android:title="@string/show_settings_title"
+            android:summary="@string/show_settings_summary"
+            android:defaultValue="true" />
 
     </PreferenceCategory>
 

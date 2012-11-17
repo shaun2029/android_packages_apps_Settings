@@ -4308,17 +4308,25 @@
     <string name="toggle_style_summary">Whether to show icon or text on toggles</string>
     <string name="toggle_only_icon">Icon only</string>
     <string name="toggle_only_text">Text only</string>
-    <string name="toggles_layout_title">Toggle Layout</string>
-    <string name="toggle_layout_icon">Icon layout</string>
-    <string name="toggle_layout_switch">Switch layout</string>
+    <string name="toggles_layout_title">Toggle layout</string>
+    <string name="toggle_layout_switch">On/off switch</string>
+    <string name="toggle_layout_toggle">Toggle button</string>
+    <string name="toggle_layout_button">Holo button</string>
+    <string name="toggle_layout_multirow">Multi-row toggles</string>
+    <string name="toggles_color_title">Color scheme</string>
+    <string name="toggles_color_summary">Defines the color to be used by toggles. Off state will be slightly darker than the selected color</string>
     <string name="enabled_toggles_title">Enabled toggles</string>
     <string name="enabled_toggles_summary">Choose toggles to display</string>
     <string name="toggles_display_dialog">Choose which toggles to use</string>
     <string name="toggles_display_close">Close</string>
     <string name="toggles_order_title">Toggle order</string>
     <string name="toggles_order_summary">Choose the order in which your toggles are displayed</string>
+    <string name="toggles_disable_scrolling_title">Disable scrolling</string>
+    <string name="toggles_disable_scrolling_summary">Adjusts toggle size depending on the amount of enabled elements</string>
     <string name="show_brightness_title">Show brightness slider</string>
     <string name="show_brightness_summary">Shows a brightness slider on notificaion drawer</string>
+    <string name="show_settings_title">Show settings</string>
+    <string name="show_settings_summary">Shows a button to open settings</string>
 
     <!-- Toggle Strings to be called from device overlays -->
     <string name="toggle_airplane_mode">Airplane Mode</string>
@@ -4345,11 +4353,13 @@
 
     <!-- Navigation Bar  -->
     <string name="navigation_bar_title">Navigation bar</string>
+    <string name="navigation_bar_button_category">Navigation bar controls</string>
+    <string name="navigation_bar_color_category">Navigation bar color</string>
+    <string name="navigation_bar_editor_title">Navigation bar editor</string>
     <string name="navigation_bar_status_title">Software buttons</string>
     <string name="navigation_bar_status_summary">Show on screen software buttons</string>
     <string name="navigation_bar_tabui_menu_title">Split menu button</string>
     <string name="navigation_bar_tabui_menu_summary">Show separate menu button instead of merging it to recents button</string>
-
     <string name="navigation_bar_help_text">1 - To begin editing, tap the lock icon\n\n2 - Tap any button to assign or change functionality\n\n3 - Long press any button to rearrange the order\n\n4 - To save, tap the lock icon again\n\n5 - To restore system default, tap the reset button\n\n</string>
     <string name="navigation_bar_tips">&#8226; Actions can only be assigned to one button at a time\n\n&#8226; The home button cannot be re-assigned\n\n&#8226; Side buttons cannot be rearranged</string>
     <string name="navigation_bar_tips_title">Quick tips</string>
@@ -4358,6 +4368,14 @@
     <string name="navigation_bar_reset_toast">Navigation bar reset to default</string>
     <string name="navigation_bar_menu_editable">Editable</string>
     <string name="navigation_bar_menu_locked">Locked</string>
+    <string name="navigation_bar_color_title">Navigation bar color</string>
+    <string name="navigation_bar_color_summary">Changes the color of the navigation bar</string>
+    <string name="navigation_bar_button_color_title">Navigation bar button color</string>
+    <string name="navigation_bar_button_color_summary">Changes the color of the navigation bar controls</string>
+    <string name="navigation_bar_glow_color_title">Navigation bar glow color</string>
+    <string name="navigation_bar_glow_color_summary">Changes the color of the navigation bar buttons glow</string>
+    <string name="navigation_bar_restore_stock_color">Restore color</string>
+    <string name="navigation_bar_restore_stock_color_summary">Restores default navigation bar colors</string>
 
     <!-- Hardware keys -->
     <string name="hardware_keys_title">Hardware keys</string>
@@ -4383,28 +4401,49 @@
     <string name="hardware_keys_action_search">Search assistant</string>
     <string name="hardware_keys_action_voice_search">Voice search</string>
     <string name="hardware_keys_action_in_app_search">In-app search</string>
+    <string name="hardware_keys_action_torch">Toggle torch</string>
 
     <!-- Status bar  -->
     <string name="combined_status_bar_title">@string/status_bar_title</string>
     <string name="status_bar_title">Status bar</string>
-    <string name="status_bar_clock_title">Clock</string>
+    <string name="status_bar_clock_normal">Normal</string>
+    <string name="status_bar_clock_small">Small (default)</string>
+    <string name="status_bar_clock_title">Clock general</string>
+    <string name="status_bar_category_am_pm_title">AM/PM</string>
+    <string name="status_bar_category_weekday_title">Day of the week</string>
+    <string name="status_bar_category_daymonth_title">Day and month</string>
     <string name="status_bar_general_title">General</string>
     <string name="status_bar_show_clock_title">Show clock</string>
     <string name="status_bar_center_clock_title">Center clock</string>
-    <string name="status_bar_am_pm_title">AM/PM style</string>
+    <string name="status_bar_show_am_pm_title">Show AM/PM</string>
+    <string name="status_bar_am_pm_size_title">AM/PM size</string>
     <string name="status_bar_am_pm_info">24-hour clock is enabled</string>
+    <string name="status_bar_show_weekday_title">Show day of the week</string>
+    <string name="status_bar_show_weekday_summary">Show abbreviated day of the week aside the clock</string>
+    <string name="status_bar_weekday_size_title">Day of the week size</string>
+    <string name="status_bar_show_daymonth_title">Show day and month</string>
+    <string name="status_bar_show_daymonth_summary">Show current day and month aside the clock</string>
+    <string name="status_bar_daymonth_size_title">Day and month size</string>
     <string name="status_bar_battery_title">Battery status style</string>
     <string name="status_bar_toggle_brightness">Brightness control</string>
     <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across status bar</string>
     <string name="status_bar_toggle_info">Automatic brightness is enabled</string>
     <string name="status_bar_signal_text_title">Signal status style</string>
-    <string name="status_bar_signal_text_show_bars">Icon (default)</string>
+    <string name="status_bar_style_icon">Icon</string>
+    <string name="status_bar_style_hidden">Hidden</string>
     <string name="status_bar_signal_text_show_text">Text</string>
     <string name="status_bar_signal_text_hidden">Hidden</string>
     <string name="status_bar_max_notifications_title">Number of notification icons</string>
     <string name="status_bar_max_notifications_summary">Applies only to portrait view</string>
     <string name="status_bar_donotdisturb_title">Do not disturb</string>
-    <string name="status_bar_donotdisturb_summary">Disable ticker animation and sound for incoming notifications</string>
+    <string name="status_bar_donotdisturb_summary">Disable ticker animation for incoming notifications</string>
+    <string name="status_bar_battery_status_icon">Icon (default)</string> <!-- TODO: dedup -->
+    <string name="status_bar_battery_status_text">Text only</string>
+    <string name="status_bar_battery_status_percentage">Percentage</string>
+    <string name="status_bar_battery_status_circle">Circle</string>
+    <string name="status_bar_battery_status_circle_percentage">Circle with percentage</string>
+    <string name="status_bar_color_title">Status bar color</string>
+    <string name="status_bar_color_summary">Changes the color of the status bar</string>
 
     <string name="lock_screen_title">Lock screen</string>
 
@@ -4502,6 +4541,18 @@
     <string name="lockscreen_clock_align_left">Left</string>
     <string name="lockscreen_clock_align_center">Center</string>
     <string name="lockscreen_clock_align_right">Right</string>
+
+    <string name="lockscreen_buttons_title">Button actions</string>
+    <string name="lockscreen_buttons_summary">View or change lock screen button actions</string>
+    <string name="lockscreen_long_press_back_title">Long press Back button</string>
+    <string name="lockscreen_long_press_home_title">Long press Home button</string>
+    <string name="lockscreen_long_press_menu_title">Long press Menu button</string>
+    <string name="lockscreen_buttons_no_action">No action</string>
+    <string name="lockscreen_buttons_flashlight">Flashlight</string>
+    <string name="lockscreen_buttons_next">Next song</string>
+    <string name="lockscreen_buttons_previous">Previous song</string>
+    <string name="lockscreen_buttons_playpause">Play/Pause music</string>
+    <string name="lockscreen_buttons_toggle_sound">Toggle sound</string>
 
     <!-- Profiles settings  -->
     <string name="profiles_settings_title">Profiles</string>
@@ -4622,12 +4673,14 @@
     <string name="toggleWimax">WiMax</string>
 
     <!-- Screen security - Screen security   -->
-    <string name="screen_security_category">Screen Security</string>
+    <string name="screen_security_category">Screen security</string>
     <string name="screen_security_title">Lock screen</string>
     <string name="screen_security_summary">View or change lock screen security, delay and timeout settings</string>
     <string name="additional_options_title">Additional options</string>
     <string name="unlock_menu_unlock_title">Menu unlock</string>
     <string name="unlock_menu_unlock_summary">Pressing the menu button unlocks the device</string>
+    <string name="unlock_home_unlock_title">Home unlock</string>
+    <string name="unlock_home_unlock_summary">Pressing the home button unlocks the device</string>
     <string name="unlock_quick_unlock_control_title">Quick unlock</string>
     <string name="unlock_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
 
@@ -4879,12 +4932,14 @@
     <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
     <string name="stylus_icon_enabled_summary">Show the pointer icon when hovering or drawing with the stylus</string>
 
-    <!-- Power menu screenshot -->
+    <!-- Power menu enable disable -->
     <string name="power_menu_title">Power menu</string>
     <string name="power_menu_reboot_title">Reboot menu</string>
     <string name="power_menu_expanded_desktop">Expanded desktop</string>
     <string name="power_menu_screenshot_title">Screenshot</string>
     <string name="power_menu_profiles_title">Profile switcher</string>
+    <string name="power_menu_airplane_title">Airplane mode</string>
+    <string name="power_menu_silent_title">Sound panel</string>
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Launch tools</string>
@@ -4899,10 +4954,43 @@
     <string name="volume_key_cursor_control_on">Volume up/down moves cursor left/right</string>
     <string name="volume_key_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
 
+    <!--- Sms security limit -->
+    <string name="app_security_title">App security</string>
+    <string name="sms_security_check_limit_title">SMS message limit</string>
+    <string name="sms_security_check_limit_summary">Display an alert dialog to prevent applications from sending SMS messages too frequently. Current limit: %d messages in 15 minutes</string>
+    <string name="sms_security_check_limit_default">30 (Default)</string>
+
+    <!-- Stylus Gestures -->
+    <string name="gestures_settings_title">Stylus gestures</string>
+    <string name="category_spen_title">Stylus gestures</string>
+    <string name="enable_subcat_title">Stylus</string>
+    <string name="enable_spen_title_head">Enable stylus gestures</string>
+    <string name="enable_spen_summary_head">Allows stylus button swipe gestures to launch custom actions. Warning: Applications will not be able to recieve input fired by holding stylus button.</string>
+    <string name="gestures_subcat_title">Gestures</string>
+    <string name="gestures_left_spen_title_head">Left swipe</string>
+    <string name="gestures_left_spen_summary_head">Allows to launch custom action on left swipe</string>
+    <string name="gestures_right_spen_title_head">Right swipe</string>
+    <string name="gestures_right_spen_summary_head">Allows to launch custom action on right swipe</string>
+    <string name="gestures_up_spen_title_head">Up swipe</string>
+    <string name="gestures_up_spen_summary_head">Allows to launch custom action on up swipe</string>
+    <string name="gestures_down_spen_title_head">Down swipe</string>
+    <string name="gestures_down_spen_summary_head">Allows to launch custom action on down swipe</string>
+    <string name="gestures_long_spen_title_head">Long press</string>
+    <string name="gestures_long_spen_summary_head">Allows to launch custom action on long press</string>
+    <string name="gestures_double_spen_title_head">Double tap</string>
+    <string name="gestures_double_spen_summary_head">Allows to launch custom action on double tap</string>
+
+    <!-- Gestures Options -->
+    <string name="gestures_action_empty">No Action</string>
+    <string name="gestures_action_home">Go To Home</string>
+    <string name="gestures_action_back">Emulate Back Key</string>
+    <string name="gestures_action_menu">Emulate Menu Key</string>
+    <string name="gestures_action_search">Invoke Search</string>
+    <string name="gestures_action_recent">Recent Applications</string>
+
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
-    
+
     <string name="hdmi_dual">Enable HDMI dual display</string>
     <string name="hdmi_dual_on">HDMI dual display enabled</string>
     <string name="hdmi_dual_off">HDMI dual display disabled</string>
-
 </resources>

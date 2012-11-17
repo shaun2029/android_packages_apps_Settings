@@ -24,13 +24,12 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.net.wimax.WimaxHelper;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ColorPickerPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -44,7 +43,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.android.settings.Utils;
 
 import com.android.internal.telephony.Phone;
 import com.android.settings.cyanogenmod.TouchInterceptor;
@@ -56,14 +54,22 @@ import java.util.Arrays;
 
 public class Toggles extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
-    private static final String TAG = "TogglesLayout";
+    private static final String TAG = "ToggleDragList";
 
     private static final String PREF_SHOW_TOGGLES = "enable_toggles";
-    private static final String PREF_ENABLED_TOGGLES = "enabled_toggles";
     private static final String PREF_SHOW_BRIGHTNESS = "show_brightness_slider";
+    private static final String PREF_SHOW_SETTINGS = "show_settings";
+    private static final String PREF_ENABLED_TOGGLES = "enabled_toggles";
+    private static final String PREF_TOGGLES_ORDER = "toggles_order";
     private static final String PREF_TOGGLES_STYLE = "toggle_style";
     private static final String PREF_TOGGLES_LAYOUT = "toggles_layout";
-    private static final String PREF_ALT_BUTTON_LAYOUT = "toggles_layout_preference";
+    private static final String PREF_TOGGLES_COLOR = "toggles_color";
+    private static final String PREF_TOGGLES_DISABLE_SCROLLING = "disable_scrollbar";
+
+    private static final int LAYOUT_SWITCH = 0;
+    private static final int LAYOUT_TOGGLE = 1;
+    private static final int LAYOUT_BUTTON = 2;
+    private static final int LAYOUT_MULTIROW = 3;
 
     private static final int ROTATE = 0;
     private static final int BLUETOOTH = 1;
@@ -76,7 +82,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
     private static final int LTE = 10;
     private static final int TORCH = 12;
     private static final int NFC = 14;
-    private static final int DONOTDISTURB = 15;
+    // private static final int DONOTDISTURB = 15;
 
     // Arrays containing the entire set of toggles
     private static ArrayList<String> allEntries;
@@ -90,10 +96,13 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
     private static Context mContext;
 
+    CheckBoxPreference mShowSettings;
     CheckBoxPreference mShowToggles;
     Preference mEnabledToggles;
-    Preference mLayout;
+    Preference mToggleOrder;
+    CheckBoxPreference mDisableScrolling;
     CheckBoxPreference mShowBrightness;
+    ColorPickerPreference mTogglesColor;
     ListPreference mTogglesLayout;
     ListPreference mToggleStyle;
 
@@ -106,26 +115,42 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
         mContext = getActivity();
 
         mShowToggles = (CheckBoxPreference) findPreference(PREF_SHOW_TOGGLES);
-        mShowToggles.setChecked(Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.STATUSBAR_TOGGLES_ENABLE, 0) == 1);
+        mShowToggles.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_TOGGLES_ENABLE, 0) == 1);
+
+        mDisableScrolling = (CheckBoxPreference) findPreference(PREF_TOGGLES_DISABLE_SCROLLING);
+        mDisableScrolling.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_TOGGLES_DISABLE_SCROLL, 0) == 1);
 
         mShowBrightness = (CheckBoxPreference) findPreference(PREF_SHOW_BRIGHTNESS);
-        mShowBrightness.setChecked(Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.STATUSBAR_TOGGLES_SHOW_BRIGHTNESS, 0) == 1);
+        mShowBrightness.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_TOGGLES_SHOW_BRIGHTNESS, 0) == 1);
+
+        mShowSettings = (CheckBoxPreference) findPreference(PREF_SHOW_SETTINGS);
+        mShowSettings.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_SHOW_SETTINGS, 1) == 1);
 
         mToggleStyle = (ListPreference) findPreference(PREF_TOGGLES_STYLE);
         mToggleStyle.setOnPreferenceChangeListener(this);
-        mToggleStyle.setValue(Integer.toString(Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.STATUSBAR_TOGGLES_STYLE, 3)));
+        mToggleStyle.setValue(Integer.toString(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_TOGGLES_STYLE, LAYOUT_TOGGLE)));
 
-        mTogglesLayout = (ListPreference) findPreference(PREF_ALT_BUTTON_LAYOUT);
+        mTogglesColor = (ColorPickerPreference) findPreference(PREF_TOGGLES_COLOR);
+        mTogglesColor.setOnPreferenceChangeListener(this);
+        mTogglesColor.setAlphaSliderEnabled(false);
+
+        int val = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_TOGGLES_LAYOUT, LAYOUT_TOGGLE);
+
+        mTogglesLayout = (ListPreference) findPreference(PREF_TOGGLES_LAYOUT);
         mTogglesLayout.setOnPreferenceChangeListener(this);
-        mTogglesLayout.setValue(Integer.toString(Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.STATUSBAR_TOGGLES_USE_BUTTONS, 1)));
+        mTogglesLayout.setValue(Integer.toString(val));
 
         mEnabledToggles = findPreference(PREF_ENABLED_TOGGLES);
 
-        mLayout = findPreference(PREF_TOGGLES_LAYOUT);
+        mToggleOrder = findPreference(PREF_TOGGLES_ORDER);
+
+        adjustPreferences(val);
 
         pm = mContext.getPackageManager();
 
@@ -136,15 +161,25 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mShowBrightness) {
-            boolean value = mShowBrightness.isChecked();
-            Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_SHOW_BRIGHTNESS, value ? 1 : 0);
-            return true;
-        } else if(preference == mShowToggles) {
+        if(preference == mShowToggles) {
             boolean value = mShowToggles.isChecked();
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_ENABLE, value ? 1 : 0);
+                    Settings.System.STATUS_BAR_TOGGLES_ENABLE, value ? 1 : 0);
+            return true;
+        } else if(preference == mDisableScrolling) {
+            boolean value = mDisableScrolling.isChecked();
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_TOGGLES_DISABLE_SCROLL, value ? 1 : 0);
+            return true;
+        } else if (preference == mShowBrightness) {
+            boolean value = mShowBrightness.isChecked();
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_TOGGLES_SHOW_BRIGHTNESS, value ? 1 : 0);
+            return true;
+        } else if (preference == mShowSettings) {
+            boolean value = mShowSettings.isChecked();
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_SHOW_SETTINGS, value ? 1 : 0);
             return true;
         } else if (preference == mEnabledToggles) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -189,10 +224,10 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
             d.show();
 
             return true;
-        } else if (preference == mLayout) {
+        } else if (preference == mToggleOrder) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            TogglesLayout fragment = new TogglesLayout();
-            ft.addToBackStack(PREF_TOGGLES_LAYOUT);
+            ToggleDragList fragment = new ToggleDragList();
+            ft.addToBackStack(PREF_TOGGLES_ORDER);
             ft.replace(this.getId(), fragment);
             ft.commit();
             return true;
@@ -202,19 +237,35 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        boolean result = false;
         if (preference == mToggleStyle) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_STYLE, val);
+                    Settings.System.STATUS_BAR_TOGGLES_STYLE, val);
             return true;
         } else if (preference == mTogglesLayout) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.STATUSBAR_TOGGLES_USE_BUTTONS, val);
+                    Settings.System.STATUS_BAR_TOGGLES_LAYOUT, val);
+            adjustPreferences(val);
+            return true;
+        } else if (preference == mTogglesColor) {
+            Settings.System.putString(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_TOGGLES_COLOR, ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue))).substring(1));
             return true;
         }
         return false;
+    }
+
+    public void adjustPreferences(int val) {
+        mToggleStyle.setEnabled(!(val == LAYOUT_BUTTON ||
+                val == LAYOUT_MULTIROW));
+
+        mDisableScrolling.setEnabled(!(val == LAYOUT_SWITCH ||
+                val == LAYOUT_MULTIROW));
+
+        mTogglesColor.setEnabled(!(val == LAYOUT_SWITCH ||
+                val == LAYOUT_MULTIROW));
     }
 
     public static void addToggle(Context context, String key) {
@@ -229,7 +280,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
         setTogglesFromStringArray(context, enabledToggles);
     }
 
-    public static class TogglesLayout extends ListFragment {
+    public static class ToggleDragList extends ListFragment {
 
         private ListView mButtonList;
         private ButtonAdapter mButtonAdapter;
@@ -325,9 +376,10 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
                 mToggles = new ArrayList<Toggle>();
                 ArrayList<String> toggleArray = getTogglesStringArray(mButtonContext);
 
-                for(int i = 0; i < toggleArray.size(); i++) {
-                    Log.d("paranoid:reloadButtons", "string="+toggleArray.get(i));
-                    mToggles.add(new Toggle(toggleArray.get(i)));
+                for(String toggle : toggleArray) {
+                    if(!toggle.equals("")) {
+                        mToggles.add(new Toggle(toggle));
+                    }
                 }
             }
 
@@ -436,7 +488,7 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
 
         // Check if torch app is installed
         try{
-            ApplicationInfo info = pm.getApplicationInfo("net.cactii.flash2", 0);
+            pm.getApplicationInfo("net.cactii.flash2", 0);
         } catch(PackageManager.NameNotFoundException e){
             removeEntry(values[TORCH]);
         }
@@ -470,13 +522,13 @@ public class Toggles extends SettingsPreferenceFragment implements OnPreferenceC
             }
         }
 
-        Settings.System.putString(c.getContentResolver(), Settings.System.STATUSBAR_TOGGLES,
+        Settings.System.putString(c.getContentResolver(), Settings.System.STATUS_BAR_TOGGLES,
                 newToggles);
     }
 
     public static ArrayList<String> getTogglesStringArray(Context c) {
         String cluster = Settings.System.getString(c.getContentResolver(),
-                Settings.System.STATUSBAR_TOGGLES);
+                Settings.System.STATUS_BAR_TOGGLES);
 
         if (cluster == null) {
             Log.e(TAG, "cluster was null");
