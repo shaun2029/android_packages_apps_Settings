@@ -205,12 +205,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
 
-	mDualDispPref = (CheckBoxPreference) findPreference(KEY_DUAL_DISP);
-	if (mDualDispPref != null) {
-	    mDualDispPref.setChecked(Settings.System.getInt(getContentResolver(),
-		Settings.System.HDMI_DUAL_DISP, 1) != 0);
-	}
-
 	mTabletUi = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
 	if (mTabletUi != null) {
 	    mTabletUi.setChecked(Settings.System.getInt(getContentResolver(),
@@ -425,9 +419,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                     mLockScreenRotation.isChecked() ? 1 : 0);
             updateDisplayRotationPreferenceDescription();
             return true;
-        } else  if (preference == mDualDispPref) {
-            Settings.System.putInt(getContentResolver(), Settings.System.HDMI_DUAL_DISP,
-                    mDualDispPref.isChecked() ? 1 : 0);
         } else  if (preference == mTabletUi) {
             Settings.System.putInt(getContentResolver(), Settings.System.TABLET_UI,
                     mTabletUi.isChecked() ? 1 : 0);

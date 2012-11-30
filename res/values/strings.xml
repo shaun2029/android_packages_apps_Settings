@@ -4980,10 +4980,6 @@
 
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
     
-    <string name="hdmi_dual">Enable HDMI dual display</string>
-    <string name="hdmi_dual_on">HDMI dual display enabled</string>
-    <string name="hdmi_dual_off">HDMI dual display disabled</string>
-
     <string name="tablet_ui_title">Enable Tablet UI</string>
 
 </resources>
